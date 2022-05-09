@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-    environment: env
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -23,6 +22,8 @@ jobs:
           pip install -r requirements.txt
           pip install django-bootstrap-datepicker-plus
       - name: Run Tests
+        env:
+          SECRET_KEY: ${{secrets.SECRET_KEY}}
         run: |
           cd homework_09/vacations
           python manage.py test
